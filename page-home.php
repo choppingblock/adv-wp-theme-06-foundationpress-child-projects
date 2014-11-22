@@ -21,22 +21,32 @@ get_header(); ?>
 
 
 
-   <!-- this will show the 3 most recent project post types -->
-   <div class="row">
+   <!-- this will use the featured ACF true/false item to show featured project post types -->
+	<div class="row">
    		<?php
-   		$args = array( 'post_type' => 'cb_project', 'posts_per_page' => 3 );
-   		$loop = new WP_Query( $args );
-   		while ( $loop->have_posts() ) : $loop->the_post(); ?>
-   			
+   		$posts = get_posts(array(
+	'post_type'		=> 'cb_project',
+	'posts_per_page'	=> -1,
+	'meta_query' => array(
+		array(
+			'key' => 'featured',
+			'value' => '1',
+			'compare' => '=='
+		)
+	)
+)); ?>
+   		
 
+	<?php if($posts): ?>
+		<?php foreach($posts as $post): ?>
    			<div class="large-4 columns">
    				<a href="<?php the_permalink(); ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_post_thumbnail( 'thumbnail' ); ?></a>
       			<h4><?php the_title(); ?></h4>
       			<?php the_content(); ?>
       				
       		</div>
-
-   		<?php endwhile; ?>
+      	<?php endforeach; ?>
+   	<?php endif; ?>
 
    	</div>
 
