@@ -25,16 +25,20 @@ get_header(); ?>
 	<div class="row">
    		<?php
    		$posts = get_posts(array(
-	'post_type'		=> 'cb_project',
-	'posts_per_page'	=> -1,
-	'meta_query' => array(
-		array(
-			'key' => 'featured',
-			'value' => '1',
-			'compare' => '=='
-		)
-	)
-)); ?>
+			'post_type'		=> 'cb_project',
+			'posts_per_page'	=> -1,
+			'meta_query' => array(
+				array(
+					'key' => 'featured',
+					'value' => '1',
+					'compare' => '=='
+				)
+			)
+		)); 
+
+		$posts = array_slice($posts, 0, 3);
+		
+?>
    		
 
 	<?php if($posts): ?>
